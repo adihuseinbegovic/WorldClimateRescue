@@ -2,12 +2,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 // Only allow this script to be attached to the object with the healthbar slider:
 [RequireComponent(typeof(Slider))]
 public class Healthbar : MonoBehaviour {
 
     // Visible health bar ui:
     private Slider healthbarDisplay;
+    public Transform target;
+    public float offset = 10;
 
     [Header("Main Variables:")]
     // Health variable: (default range: 0-100)
@@ -62,6 +65,10 @@ public class Healthbar : MonoBehaviour {
     // Every frame:
     private void Update()
     {
+        //for being always in foreground 
+        target.position = transform.position + transform.forward * offset;
+        target.rotation = new Quaternion(0.0f, transform.rotation.y, 0.0f, transform.rotation.w);
+
         healthPercentage = int.Parse((Mathf.Round(maximumHealth * (health / 100f))).ToString());
 
         // If the player's health is below the minimum health, then set it to the minimum health:

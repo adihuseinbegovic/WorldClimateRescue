@@ -15,6 +15,8 @@ namespace Platformer.Mechanics
         /// </summary>
         public int maxHP = 1;
 
+        public Healthbar healthbar;
+
         /// <summary>
         /// Indicates if the entity should be considered 'alive'.
         /// </summary>
@@ -42,6 +44,8 @@ namespace Platformer.Mechanics
                 var ev = Schedule<HealthIsZero>();
                 ev.health = this;
             }
+            healthbar.TakeDamage(25);
+            
         }
 
         /// <summary>
