@@ -17,6 +17,9 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
+        public int jumpsLeft = 0;
+        public float jumpBoost = 1;
+        GameObject jetpack;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -49,6 +52,7 @@ namespace Platformer.Mechanics
             collider2d = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+            jetpack = GameObject.FindWithTag("jetpack");
         }
 
         protected override void Update()
@@ -106,8 +110,27 @@ namespace Platformer.Mechanics
         {
             if (jump && IsGrounded)
             {
-                velocity.y = jumpTakeOffSpeed * model.jumpModifier;
+
+                if (jumpsLeft > 0)
+                {
+                    jumpBoost = 1.5f;
+                    jumpsLeft--;
+                }
+                if (jumpsLeft <= 0)
+                {
+                    jumpBoost = 1;
+                    //TODO: set jetpack invisible
+                    GameObject jetpack2 = this.gameObject.transform.GetChild(0).gameObject;
+                    Debug.Log("Gameobject of type " + jetpack2.tag);
+                    jetpack2.SetActive(false);
+                }
+                velocity.y = jumpTakeOffSpeed * model.jumpModifier * jumpBoost;
                 jump = false;
+
+                GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
+
+                //TODO if jetpack available set animation to flying
+
             }
             else if (stopJump)
             {
@@ -115,15 +138,31 @@ namespace Platformer.Mechanics
                 if (velocity.y > 0)
                 {
                     velocity.y = velocity.y * model.jumpDeceleration;
+                    //TODO if jetpack available set animation to stopping
                 }
             }
 
             if (move.x > 0.01f)
+            {
                 spriteRenderer.flipX = false;
+                GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
+                jetpack.GetComponent<SpriteRenderer>().flipX = false;
+                //jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x + 1, this.transform.localPosition.y, this.transform.localPosition.z);
+            }
+                
+
+
             else if (move.x < -0.01f)
+            {
                 spriteRenderer.flipX = true;
+                GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
+                jetpack.GetComponent<SpriteRenderer>().flipX = true;
+               // jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x - 1, this.transform.localPosition.y, this.transform.localPosition.z);
+            }
+                
 
             animator.SetBool("grounded", IsGrounded);
+            //TODO if jetpack available set animation to idle
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
             targetVelocity = move * maxSpeed;
