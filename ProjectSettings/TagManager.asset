@@ -6,6 +6,7 @@ TagManager:
   tags:
   - jetpack
   - jetpack_item
+  - Platform
   layers:
   - Default
   - TransparentFX

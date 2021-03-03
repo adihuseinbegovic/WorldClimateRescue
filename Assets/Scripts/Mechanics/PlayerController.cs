@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
+using UnityEngine.EventSystems;
 
 namespace Platformer.Mechanics
 {
@@ -25,15 +27,21 @@ namespace Platformer.Mechanics
         /// Max horizontal speed of the player.
         /// </summary>
         public float maxSpeed = 7;
+
         /// <summary>
         /// Initial jump velocity at the start of a jump.
         /// </summary>
         public float jumpTakeOffSpeed = 7;
 
         public JumpState jumpState = JumpState.Grounded;
+
         private bool stopJump;
-        /*internal new*/ public Collider2D collider2d;
-        /*internal new*/ public AudioSource audioSource;
+
+        /*internal new*/
+        public Collider2D collider2d;
+
+        /*internal new*/
+        public AudioSource audioSource;
         public Health health;
         public bool controlEnabled = true;
 
@@ -67,11 +75,13 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
+
             }
             else
             {
                 move.x = 0;
             }
+
             UpdateJumpState();
             base.Update();
         }
@@ -92,6 +102,7 @@ namespace Platformer.Mechanics
                         Schedule<PlayerJumped>().player = this;
                         jumpState = JumpState.InFlight;
                     }
+
                     break;
                 case JumpState.InFlight:
                     if (IsGrounded)
@@ -99,6 +110,7 @@ namespace Platformer.Mechanics
                         Schedule<PlayerLanded>().player = this;
                         jumpState = JumpState.Landed;
                     }
+
                     break;
                 case JumpState.Landed:
                     jumpState = JumpState.Grounded;
@@ -116,6 +128,7 @@ namespace Platformer.Mechanics
                     jumpBoost = 1.5f;
                     jumpsLeft--;
                 }
+
                 if (jumpsLeft <= 0)
                 {
                     jumpBoost = 1;
@@ -124,6 +137,7 @@ namespace Platformer.Mechanics
                     Debug.Log("Gameobject of type " + jetpack2.tag);
                     jetpack2.SetActive(false);
                 }
+
                 velocity.y = jumpTakeOffSpeed * model.jumpModifier * jumpBoost;
                 jump = false;
 
@@ -149,7 +163,7 @@ namespace Platformer.Mechanics
                 jetpack.GetComponent<SpriteRenderer>().flipX = false;
                 //jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x + 1, this.transform.localPosition.y, this.transform.localPosition.z);
             }
-                
+
 
 
             else if (move.x < -0.01f)
@@ -157,9 +171,9 @@ namespace Platformer.Mechanics
                 spriteRenderer.flipX = true;
                 GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
                 jetpack.GetComponent<SpriteRenderer>().flipX = true;
-               // jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x - 1, this.transform.localPosition.y, this.transform.localPosition.z);
+                // jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x - 1, this.transform.localPosition.y, this.transform.localPosition.z);
             }
-                
+
 
             animator.SetBool("grounded", IsGrounded);
             //TODO if jetpack available set animation to idle
@@ -176,5 +190,19 @@ namespace Platformer.Mechanics
             InFlight,
             Landed
         }
+
+        private void OnTriggerStay2D(Collider2D other)
+         {
+             Debug.Log(jumpState);
+             if(other.gameObject.CompareTag("Platform") && jumpState == JumpState.Grounded)
+             {
+                 transform.parent = other.gameObject.transform;
+             }
+             else if (other.gameObject.CompareTag("Platform") && jumpState != JumpState.Grounded )
+             {
+                 Debug.Log("Jumping!"    );
+                 transform.parent = null;
+             }
+         }
     }
 }
