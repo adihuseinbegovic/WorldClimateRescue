@@ -20,6 +20,7 @@ namespace Platformer.Mechanics
         public Sprite jetpack_off, jetpackk_on, jetpack_falling; 
         public int jumpsLeft = 0;
         public float jumpBoost = 1;
+        public bool jetPackEnabled = true; 
         Vector3 posJetpackLeft = new Vector3(-1.24f, -0.25f, -0.964f);
         Vector3 posJetpackRight = new Vector3(0.8f, -0.25f, -0.964f);
         GameObject jetpack;
@@ -56,6 +57,7 @@ namespace Platformer.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             jetpack = GameObject.FindWithTag("jetpack");
+            jetpack.SetActive(false);
         }
 
         protected override void Update()
@@ -67,7 +69,21 @@ namespace Platformer.Mechanics
                 Debug.Log("Apocalypse Meter == 0; YOU LOST!");
             }
 
-
+            if (Input.GetKey(KeyCode.J))
+            {
+                    if (jetPackEnabled == false)
+                    {
+                        Debug.Log("set jetpack level true");
+                        jetPackEnabled = true;
+                        jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_falling;
+                    }
+                    else if (jetPackEnabled == true)
+                    {
+                        Debug.Log("set jetpack level false");
+                        jetPackEnabled = false;
+                        jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_off;
+                    }
+            }
 
             if (controlEnabled)
             {
@@ -79,6 +95,7 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
+               
             }
             else
             {
@@ -112,7 +129,15 @@ namespace Platformer.Mechanics
                     {
                         Schedule<PlayerLanded>().player = this;
                         jumpState = JumpState.Landed;
-                        jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_falling;
+                        if(jetPackEnabled == true)
+                        {
+                            jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_falling;
+                        }
+                        else
+                        {
+                            jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_off;
+                        }
+                        
                     }
                     break;
                 case JumpState.Landed:
@@ -128,10 +153,16 @@ namespace Platformer.Mechanics
 
                 if (jumpsLeft > 0)
                 {
-                    jumpBoost = 1.5f;
-                    jumpsLeft--;
-                    GameObject apo = GameObject.FindGameObjectsWithTag("apocalype_meter")[0];
-                    apo.GetComponent<Healthbar>().TakeDamage(10);
+                    if(jetPackEnabled == true)
+                    {
+                        jumpBoost = 1.5f;
+                        jumpsLeft--;
+                        GameObject apo = GameObject.FindGameObjectsWithTag("apocalype_meter")[0];
+                        apo.GetComponent<Healthbar>().TakeDamage(10);
+                    } else
+                    {
+                        jumpBoost = 1;
+                    }
                 }
                 if (jumpsLeft <= 0)
                 {
