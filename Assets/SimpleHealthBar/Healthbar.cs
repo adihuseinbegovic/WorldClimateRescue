@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Platformer.Mechanics;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class Healthbar : MonoBehaviour {
     [Tooltip("Health variable: (default range: 0-100)")] public float health = 100;
 
     // Percentage of how full your health is: (0-100, no decimals)
-    private int healthPercentage = 100;
+    public int healthPercentage = 100;
 
     // Minimum possible heath:
     [Tooltip("Minimum possible heath: (default is 0)")] public float minimumHealth = 0;
@@ -91,6 +92,7 @@ public class Healthbar : MonoBehaviour {
             // Each time the health is changed, update it visibly:
             UpdateHealth();
         }
+
     }
 
     // Set the health bar to display the same health value as the health variable:

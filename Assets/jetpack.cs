@@ -7,7 +7,9 @@ public class jetpack : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "jetpack_item")
+       
+
+        if(collision.gameObject.name == "jetpack_item")
         {
             //Debug.Log("made contact with jetpack");
             collision.gameObject.SetActive(false);
@@ -17,6 +19,7 @@ public class jetpack : MonoBehaviour
             GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
             Debug.Log("Gameobject of type " + jetpack.tag);
             jetpack.SetActive(true);
+            jetpack.GetComponent<SpriteRenderer>().enabled = true;
 
         }
         //Debug.Log("made contact with an object");
@@ -24,6 +27,5 @@ public class jetpack : MonoBehaviour
 
     private void Update()
     {
-       
     }
 }

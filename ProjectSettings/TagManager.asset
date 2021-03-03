@@ -6,6 +6,7 @@ TagManager:
   tags:
   - jetpack
   - jetpack_item
+  - apocalype_meter
   layers:
   - Default
   - TransparentFX

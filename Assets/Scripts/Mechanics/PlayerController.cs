@@ -17,8 +17,11 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
+        public Sprite jetpack_off, jetpackk_on, jetpack_falling; 
         public int jumpsLeft = 0;
         public float jumpBoost = 1;
+        Vector3 posJetpackLeft = new Vector3(-1.24f, -0.25f, -0.964f);
+        Vector3 posJetpackRight = new Vector3(0.8f, -0.25f, -0.964f);
         GameObject jetpack;
 
         /// <summary>
@@ -57,6 +60,15 @@ namespace Platformer.Mechanics
 
         protected override void Update()
         {
+            //APOCALYPSE METER = 0
+            //YOU LOST
+            if(GameObject.FindGameObjectWithTag("apocalype_meter").GetComponent<Healthbar>().healthPercentage == 0)
+            {
+                Debug.Log("Apocalypse Meter == 0; YOU LOST!");
+            }
+
+
+
             if (controlEnabled)
             {
                 move.x = Input.GetAxis("Horizontal");
@@ -85,12 +97,14 @@ namespace Platformer.Mechanics
                     jumpState = JumpState.Jumping;
                     jump = true;
                     stopJump = false;
+                    
                     break;
                 case JumpState.Jumping:
                     if (!IsGrounded)
                     {
                         Schedule<PlayerJumped>().player = this;
                         jumpState = JumpState.InFlight;
+                        jetpack.GetComponent<SpriteRenderer>().sprite = jetpackk_on;
                     }
                     break;
                 case JumpState.InFlight:
@@ -98,6 +112,7 @@ namespace Platformer.Mechanics
                     {
                         Schedule<PlayerLanded>().player = this;
                         jumpState = JumpState.Landed;
+                        jetpack.GetComponent<SpriteRenderer>().sprite = jetpack_falling;
                     }
                     break;
                 case JumpState.Landed:
@@ -115,13 +130,15 @@ namespace Platformer.Mechanics
                 {
                     jumpBoost = 1.5f;
                     jumpsLeft--;
+                    GameObject apo = GameObject.FindGameObjectsWithTag("apocalype_meter")[0];
+                    apo.GetComponent<Healthbar>().TakeDamage(10);
                 }
                 if (jumpsLeft <= 0)
                 {
                     jumpBoost = 1;
                     //TODO: set jetpack invisible
                     GameObject jetpack2 = this.gameObject.transform.GetChild(0).gameObject;
-                    Debug.Log("Gameobject of type " + jetpack2.tag);
+
                     jetpack2.SetActive(false);
                 }
                 velocity.y = jumpTakeOffSpeed * model.jumpModifier * jumpBoost;
@@ -147,7 +164,7 @@ namespace Platformer.Mechanics
                 spriteRenderer.flipX = false;
                 GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
                 jetpack.GetComponent<SpriteRenderer>().flipX = false;
-                //jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x + 1, this.transform.localPosition.y, this.transform.localPosition.z);
+                jetpack.transform.localPosition = posJetpackLeft;
             }
                 
 
@@ -157,15 +174,20 @@ namespace Platformer.Mechanics
                 spriteRenderer.flipX = true;
                 GameObject jetpack = this.gameObject.transform.GetChild(0).gameObject;
                 jetpack.GetComponent<SpriteRenderer>().flipX = true;
-               // jetpack.transform.localPosition = new Vector3(this.transform.localPosition.x - 1, this.transform.localPosition.y, this.transform.localPosition.z);
+
+                jetpack.transform.localPosition = posJetpackRight;
             }
                 
 
             animator.SetBool("grounded", IsGrounded);
-            //TODO if jetpack available set animation to idle
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
-            targetVelocity = move * maxSpeed;
+
+            //ONLY FOR MOUNTAIN LEVEL 
+            GameObject apometer = GameObject.FindGameObjectWithTag("apocalype_meter");
+            float percentage = apometer.GetComponent<Healthbar>().healthPercentage /100f;
+            targetVelocity = move * maxSpeed *percentage;
+           
         }
 
         public enum JumpState
