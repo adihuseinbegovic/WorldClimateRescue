@@ -6,6 +6,9 @@ TagManager:
   tags:
   - jetpack
   - jetpack_item
+  - apocalype_meter
+  - enemy
+  - healthbar
   layers:
   - Default
   - TransparentFX
