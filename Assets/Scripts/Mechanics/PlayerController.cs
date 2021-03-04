@@ -5,6 +5,7 @@ using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
+using UnityEngine.SceneManagement;
 
 namespace Platformer.Mechanics
 {
@@ -67,6 +68,12 @@ namespace Platformer.Mechanics
             if(GameObject.FindGameObjectWithTag("apocalype_meter").GetComponent<Healthbar>().healthPercentage == 0)
             {
                 Debug.Log("Apocalypse Meter == 0; YOU LOST!");
+                SceneManager.LoadScene("StartScene");
+            }
+            if (GameObject.FindGameObjectWithTag("healthbar").GetComponent<Healthbar>().healthPercentage == 0)
+            {
+                Debug.Log("Health Meter == 0; YOU LOST!");
+                SceneManager.LoadScene("StartScene");
             }
 
             if (Input.GetKey(KeyCode.J))

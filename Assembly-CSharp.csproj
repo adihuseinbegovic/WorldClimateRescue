@@ -109,9 +109,12 @@
     <Compile Include="Assets\Scripts\View\AnimatedTile.cs" />
     <Compile Include="Assets\Scripts\View\ParallaxLayer.cs" />
     <Compile Include="Assets\SimpleHealthBar\Healthbar.cs" />
+    <Compile Include="Assets\enemy_hit.cs" />
     <Compile Include="Assets\item_functionality.cs" />
     <Compile Include="Assets\jetpack.cs" />
     <Compile Include="Assets\jetpack_item.cs" />
+    <Compile Include="Assets\sampling_item.cs" />
+    <Compile Include="Assets\sapling_item.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\PlatformerMicrogame_README.txt" />
