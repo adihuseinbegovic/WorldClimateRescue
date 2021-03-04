@@ -55,7 +55,11 @@ The following packages were added:
   com.unity.learn.iet-framework@0.3.0-preview.5
   com.unity.postprocessing@2.3.0
 
+<<<<<<< HEAD
 === Wed Mar  3 15:47:13 2021
+=======
+=== Wed Mar  3 15:47:22 2021
+>>>>>>> 112e1d4c63e013f6af8ba2c9c6871946136ea098
 
 Packages were changed.
 Update Mode: resetToDefaultDependencies
