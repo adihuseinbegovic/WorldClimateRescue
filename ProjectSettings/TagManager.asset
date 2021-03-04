@@ -7,6 +7,8 @@ TagManager:
   - jetpack
   - jetpack_item
   - apocalype_meter
+  - enemy
+  - healthbar
   - Platform
   layers:
   - Default
