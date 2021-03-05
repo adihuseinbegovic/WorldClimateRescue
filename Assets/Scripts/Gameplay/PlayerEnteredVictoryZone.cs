@@ -16,12 +16,28 @@ namespace Platformer.Gameplay
         public VictoryZone victoryZone;
 
         PlatformerModel model = Simulation.GetModel<PlatformerModel>();
-
+        public int levelCount = 0;
+            
         public override void Execute()
         {
             model.player.animator.SetTrigger("victory");
             model.player.controlEnabled = false;
-            SceneManager.LoadScene("StartScene");
+            if(levelCount == 0)
+            {
+                SceneManager.LoadScene("SecondLevel");
+                levelCount++;
+            }
+            if(levelCount == 1)
+            {
+                SceneManager.LoadScene("ThirdLevel");
+                levelCount++;
+            }
+            if (levelCount == 2)
+            {
+                SceneManager.LoadScene("GameCompletedScreen");
+                levelCount = 0;
+            }
+
         }
     }
 }

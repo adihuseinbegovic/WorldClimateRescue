@@ -20,7 +20,7 @@ namespace Platformer.Mechanics
                 var ev = Schedule<PlayerEnteredDeathZone>();
                 ev.deathzone = this;
                 GameObject apo = GameObject.FindGameObjectsWithTag("apocalype_meter")[0];
-                apo.GetComponent<Healthbar>().health = 100;
+                apo.GetComponent<Healthbar>().health = 0;
             }
         }
     }
