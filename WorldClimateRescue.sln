@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{BF2A4AB5-541E-78F9-6541-D95D263292E3}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.TestRunner", "UnityEngine.TestRunner.csproj", "{01370A42-AA44-9E83-5B87-657538007D67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{588C178F-157A-89DF-56B5-F423498BDB4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{BF2A4AB5-541E-78F9-6541-D95D263292E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.TextMeshPro", "Unity.TextMeshPro.csproj", "{C6367D57-8C6A-5279-E331-7A83A166431B}"
 EndProject
@@ -39,6 +39,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{01370A42-AA44-9E83-5B87-657538007D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{01370A42-AA44-9E83-5B87-657538007D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01370A42-AA44-9E83-5B87-657538007D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +51,6 @@ Global
 		{588C178F-157A-89DF-56B5-F423498BDB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588C178F-157A-89DF-56B5-F423498BDB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588C178F-157A-89DF-56B5-F423498BDB4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF2A4AB5-541E-78F9-6541-D95D263292E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6367D57-8C6A-5279-E331-7A83A166431B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6367D57-8C6A-5279-E331-7A83A166431B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6367D57-8C6A-5279-E331-7A83A166431B}.Release|Any CPU.ActiveCfg = Release|Any CPU
