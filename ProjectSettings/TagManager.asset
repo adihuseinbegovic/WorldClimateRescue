@@ -9,7 +9,6 @@ TagManager:
   - apocalype_meter
   - enemy
   - healthbar
-  - Platform
   layers:
   - Default
   - TransparentFX

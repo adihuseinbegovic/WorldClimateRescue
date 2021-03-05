@@ -236,17 +236,5 @@ namespace Platformer.Mechanics
             InFlight,
             Landed
         }
-    
-        private void OnTriggerStay2D(Collider2D other)
-         {
-             if(other.gameObject.CompareTag("Platform") && jumpState == JumpState.Grounded)
-             {
-                 transform.parent = other.gameObject.transform;
-             }
-             else if (other.gameObject.CompareTag("Platform") && jumpState != JumpState.Grounded )
-             {
-                 transform.parent = null;
-             }
-         }
     }
 }
